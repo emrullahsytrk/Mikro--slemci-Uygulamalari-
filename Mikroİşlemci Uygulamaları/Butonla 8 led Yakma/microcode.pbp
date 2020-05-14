@@ -1,0 +1,22 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2020 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 3.03.2020                                         *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+     TRISA=%00000        'A portu Çýkýþ olarak ayarlandý
+     TRISB=%00000     	 'B portu Çýkýþ olarak ayarlandý
+PORTA=0                  'A portu tüm çýkýþlar low (0)
+PORTB=0    	             'B portu tüm çýkýþlar low (0)
+PortA.0=1
+PortA.1=1
+PortA.2=1
+PortA.3=1
+PortA.4=1
+PortB.0=1
+PortB.1=1
+PortB.2=1

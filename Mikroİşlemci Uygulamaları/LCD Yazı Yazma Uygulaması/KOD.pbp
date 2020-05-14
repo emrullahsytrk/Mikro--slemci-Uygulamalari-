@@ -1,0 +1,38 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2020 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 28.03.2020                                        *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+DEFINE LCD_DREG		PORTB	'LCD data bacaklarý PortB de baðlý
+DEFINE LCD_DBIT			4	'LCD data bacaklarý 4. bitten baþlýyor
+DEFINE LCD_EREG		PORTB	'LCD Enable Bacaðý PortB de baðlý
+DEFINE LCD_EBIT			3	'LCD Enable Bacaðý 3. bite baðlý	
+DEFINE LCD_RWREG    PORTB	'LCD RW Bacaðý PortB de baðlý
+DEFINE LCD_RWBIT     	2	'LCD RW Bacaðý  2. bite baðlý
+DEFINE LCD_RSREG	PORTB	'LCD RS Bacaðý PortB de baðlý
+DEFINE LCD_RSBIT		1	'LCD RS bacaðý 1. Bite baðlý		
+DEFINE LCD_BITS			4	'LCD 4 bit  olarak baðlý
+DEFINE LCD_LINES		4	'LCD 2 sýra olarak çalýþýyor.
+
+
+TRISA=0                     'A portu çýkýþ olarak ayarlandý.
+TRISB=0                     'B portu çýkýþ olarak ayarlandý.
+      
+'LOW PORTB.2     		  'RW bacaðý ekrana yazmaya imkan vermek için LOW yapýldý.
+
+PAUSE 200                 ' LCD nin kullanýma hazýr hale gelebilmesi için gerekli süre
+
+LCDOUT $FE,1               'ÖNCE EKRANI SÝLER
+LCDOUT $FE,$0F
+LCDOUT "EMRULLAH SOYTURK"  'ÝLK SIRA BAÞTAN ÝTÝBAREN YAZIRIR. BU KOMUTU BAÞKA BÝR ÞEKÝLDE DE YAZILABÝLÝR , LCDOUT $FE,2,"BASIC DERSLERI"
+
+LCDOUT $FE,$C0,"16008116056"		    'ÝKÝNCÝ SATIRA YAZDIRIR
+LCDOUT $FE,$D4,"BOZOK UNIVERSITESI"		'ÝKÝNCÝ SATIRA YAZDIRIR
+LCDOUT $FE,$D4
+End 						
+

@@ -1,0 +1,55 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2020 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 8.04.2020                                         *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+CMCON=%111 'KARÞILAÞTIRICILARI KAPATIR
+VRCON=0    'REFERANS VOLTAJ GÝRÝÞÝNÝ KAPATIR
+
+TRISA=0      'A PPORTUNUN TÜM BACAKLARI ÇIKIÞ YAPILDI
+TRISB=%00000001      'B PORTUNUN 0. BÝTÝ GÝRÝÞ, DÝÐERLERÝ ÇIKIÞ YAPILDI
+
+PORTA=0          'PORTA NIN ÝÇERÝÐÝNÝ SIFIRLAR
+PORTB=0          'PORTB NIN ÝÇERÝÐÝNÝ SIFIRLAR
+ 
+K VAR BYTE
+
+SYMBOL LED=PORTA.0
+SYMBOL LED1=PORTA.1
+SYMBOL LED2=PORTA.2
+SYMBOL BUTON=PORTB.0
+SYMBOL MOTOR=PORTB.1
+
+SYMBOL DUR=100 
+
+BASLA:
+IF BUTON=1 THEN
+
+FOR K=1 TO 10
+LED=1
+PAUSE DUR
+LED1=1
+PAUSE DUR
+LED2=1
+PAUSE DUR
+LED2=0
+PAUSE DUR
+LED1=0
+PAUSE DUR
+LED=0
+PAUSE DUR
+
+IF K=10 THEN
+MOTOR=1
+PAUSE 2000
+MOTOR=0
+ENDIF
+NEXT K
+
+ENDIF
+gOTO BASLA

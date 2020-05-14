@@ -1,0 +1,146 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2020 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 4.05.2020                                         *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+PCON=%00000000
+define osc 20
+
+Define  LCD_DREG       PORTD   ' LCD baðlantýlarýný tanýmla
+Define  LCD_DBIT	    4
+Define  LCD_RSREG      PORTE
+Define  LCD_RSBIT       0
+Define  LCD_EREG       PORTE
+Define  LCD_EBIT      	1
+
+        ADCON1 = 7 		' PORTA ve  E dijital giriþ çýkýþ olarak ayarla
+        Low PORTE.2		' LCD R/W low = yazma modu
+        Pause 300   	' LCD baþlamak için bekle
+
+option_reg=0        'PORTB Pulluplar etkin.
+                    '(Pullup=Portb' nin tüm uçlarýný +5V a çekmektir.lojik 1)
+
+TRISB=%11110000     'PORTB 7654 giriþ 3210 çýkýþ olarak ayarlandý
+TRISC=%00000000     'PORTC Tüm uçlar çýkýþ olarak ayarlandý
+
+portb=0:portc=0      'PORTB ve PORTC yi 0 yap
+
+lcdout $FE,1        'LCD ekraný sil
+lcdout $FE,2,"KEYPAD PROJESI"
+
+' ***************DEÐÝÞKEN Tanýmlama Bloklarý ****************
+BTNA  var byte
+BTNB  var byte
+BTNC  var byte
+BTND  var byte
+BTNE  var byte
+BTNF  var byte
+BTN0  var byte
+BTN1  var byte
+BTN2  var byte
+BTN3 var byte
+BTN4 var byte
+BTN5 var byte
+BTN6 var byte
+BTN7 var byte
+BTN8 var byte
+BTN9 var byte
+
+gosub Degisken0
+'**********************  Ana Program ************************
+Anadongu:
+'*******  1.satýr taramasý ******
+portb=%11111110
+' portb.0 a 0 deðeri verilerek 1.satýr taramasý gerçekleþtirilir
+' buna göre portb.4,5,6,7 deki durum gözlenir.
+' Eðer bu butonlardan birine basýldýysa ilgili buton deðiþkeni 1 yapýlýr.
+if portb.4=0 then BTNA=1
+if portb.5=0 then BTNB=1
+if portb.6=0 then BTNC=1
+if portb.7=0 then BTND=1
+ 
+'*******  2.satýr taramasý ******
+portb=%11111101
+' portb.1 e 0 deðeri verilerek 1.satýr taramasý gerçekleþtirilir
+' buna göre portb.4,5,6,7 deki durum gözlenir.
+' Eðer bu butonlardan birine basýldýysa ilgili buton deðiþkeni 1 yapýlýr.
+
+if portb.4=0 then BTNE=1
+if portb.5=0 then BTNF=1
+if portb.6=0 then BTN0=1
+if portb.7=0 then BTN1=1
+
+'*******  3.satýr taramasý ******
+portb=%11111011
+' portb.2 ye 0 deðeri verilerek 1.satýr taramasý gerçekleþtirilir
+' buna göre portb.4,5,6,7 deki durum gözlenir.
+' Eðer bu butonlardan birine basýldýysa ilgili buton deðiþkeni 1 yapýlýr.
+
+if portb.4=0 then BTN2=1
+if portb.5=0 then BTN3=1
+if portb.6=0 then BTN4=1
+if portb.7=0 then BTN5=1
+
+'*******  4.satýr taramasý ******
+portb=%11110111
+' portb.3 e 0 deðeri verilerek 1.satýr taramasý gerçekleþtirilir
+' buna göre portb.4,5,6,7 deki durum gözlenir.
+' Eðer bu butonlardan birine basýldýysa ilgili buton deðiþkeni 1 yapýlýr.
+
+if portb.4=0 then BTN6=1
+if portb.5=0 then BTN7=1
+if portb.6=0 then BTN8=1
+if portb.7=0 then BTN9=1
+gosub LCDgoster
+gosub degisken0
+
+goto anadongu
+'****************** Deðiþken ilk deðerleri ****************
+degisken0:
+BTNA=0:
+BTNB=0:
+BTNC=0:
+BTND=0:
+BTNE=0:
+BTNF=0:
+BTN0=0:
+BTN1=0:
+BTN2=0
+BTN3=0:
+BTN4=0:
+BTN5=0:
+BTN6=0:
+BTN7=0:
+BTN8=0:
+BTN9=0
+
+return
+
+'******* Buton deðerlerini LCD ekranda gösterim ************
+lcdgoster:
+if BTNA=1 then lcdout $FE,$C0,"A":portc.0=1   'portc.0 portuna baðlý ledi yakar
+if BTNB=1 then lcdout $FE,$C0,"B":portc.1=1   'portc.1 portuna baðlý ledi yakar
+if BTNC=1 then lcdout $FE,$C0,"C":portc.2=1   'portc.2 portuna baðlý ledi yakar
+if BTND=1 then lcdout $FE,$C0,"D":portc.3=1   'portc.3 portuna baðlý ledi yakar
+if BTNE=1 then lcdout $FE,$C0,"E":portc.4=1   'portc.4 portuna baðlý ledi yakar
+if BTNF=1 then lcdout $FE,$C0,"F":portc.5=1   'portc.5 portuna baðlý ledi yakar
+if BTN0=1 then lcdout $FE,$C0,"0":portc.6=1   'portc.6 portuna baðlý ledi yakar
+if BTN1=1 then lcdout $FE,$C0,"1":portc.7=1   'portc.7 portuna baðlý ledi yakar
+if BTN2=1 then lcdout $FE,$C0,"2":portc.0=0   'portc.0 portuna baðlý ledi söndürür
+if BTN3=1 then lcdout $FE,$C0,"3":portc.1=0 'portc.1 portuna baðlý ledi söndürür
+if BTN4=1 then lcdout $FE,$C0,"4":portc.2=0 'portc.2 portuna baðlý ledi söndürür
+if BTN5=1 then lcdout $FE,$C0,"5":portc.3=0 'portc.3 portuna baðlý ledi söndürür
+if BTN6=1 then lcdout $FE,$C0,"6":portc.4=0 'portc.4 portuna baðlý ledi söndürür
+if BTN7=1 then lcdout $FE,$C0,"7":portc.5=0 'portc.5 portuna baðlý ledi söndürür
+if BTN8=1 then lcdout $FE,$C0,"8":portc.6=0 'portc.6 portuna baðlý ledi söndürür
+if BTN9=1 then lcdout $FE,$C0,"9":portc.7=0 'portc.7 portuna baðlý ledi söndürür
+
+
+return
+
+end 
